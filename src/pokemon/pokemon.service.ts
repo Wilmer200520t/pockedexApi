@@ -109,4 +109,13 @@ export class PokemonService {
       throw new InternalServerErrorException(`${message} ${error}`);
     throw new BadRequestException(`${message} ${errorMessage}`);
   }
+
+  async insertMany(pokemons: CreatePokemonDto[]) {
+    try {
+      const result = await this.PokemonModel.insertMany(pokemons);
+      return result;
+    } catch (error) {
+      this.handleExceptions(error, 'Error inserting pokemons,');
+    }
+  }
 }

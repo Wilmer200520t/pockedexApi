@@ -41,6 +41,14 @@ npm run build
 npm run start:prod
 ```
 
+## Insert initial data(optional)
+
+`Method : GET BASE_URL/api/v2/seed` or
+
+```bash
+curl --location 'BASE_URL/api/v2/seed'
+```
+
 ## Stack Usado
 
 - MongoDb

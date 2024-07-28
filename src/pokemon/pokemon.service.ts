@@ -6,7 +6,6 @@ import {
 import { CreatePokemonDto } from './dto/create-pokemon.dto';
 import { UpdatePokemonDto } from './dto/update-pokemon.dto';
 import { Pokemon } from './entities/pokemon.entity';
-
 import { isValidObjectId, Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 
@@ -40,7 +39,7 @@ export class PokemonService {
     }
 
     if (!pokemon) {
-      throw new BadRequestException(`Pokemon not found ${termSearch}`);
+      throw new BadRequestException(`Pokemon ${termSearch} not found`);
     }
 
     return pokemon;
@@ -66,13 +65,13 @@ export class PokemonService {
       const pokemon = await this.PokemonModel.create(createPokemonDto);
       return pokemon;
     } catch (error) {
-      this.handleExceptions(error, 'Error creating pokemon, ');
+      this.handleExceptions(error, 'Error creating pokemon,');
     }
   }
 
-  async update(id: string, updatePokemonDto: UpdatePokemonDto) {
+  async update(term: string, updatePokemonDto: UpdatePokemonDto) {
     try {
-      const pokemon = await this.findOne(id);
+      const pokemon = await this.findOne(term);
 
       const newPokemon = await this.PokemonModel.findByIdAndUpdate(
         {
@@ -88,19 +87,26 @@ export class PokemonService {
 
       return newPokemon;
     } catch (error) {
-      this.handleExceptions(error, 'Error updating pokemon, ');
+      this.handleExceptions(error, 'Error updating pokemon,');
     }
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} pokemon`;
+  async remove(term: string) {
+    try {
+      const pokemon = await this.findOne(term);
+
+      const newPokemon = await this.PokemonModel.findByIdAndDelete(pokemon._id);
+
+      return newPokemon;
+    } catch (error) {
+      this.handleExceptions(error, 'Error deleting pokemon,');
+    }
   }
 
   private handleExceptions(error: any, message?: string) {
-    if (error.code === 11000)
-      throw new BadRequestException(`${message} ${error.errmsg}`);
-
-    console.log(error);
-    throw new InternalServerErrorException(`${message} ${error}`);
+    const errorMessage = error.errmsg || error.message;
+    if (!errorMessage)
+      throw new InternalServerErrorException(`${message} ${error}`);
+    throw new BadRequestException(`${message} ${errorMessage}`);
   }
 }

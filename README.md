@@ -12,29 +12,32 @@ None
 ## Installation
 
 ```bash
+# Install node dependencies
 npm install
 ```
 
 ## Run database
 
 ```bash
+# Run mongo container
 docker-compose up -d
 ```
 
 ## Running the app
 
 ```bash
-# development
+# Start app as development
 npm run start
 ```
 
 ```bash
-# watch mode
+# Start app as watch mode
 npm run start:dev
 ```
 
 ```bash
-# production mode
+# Start app as production mode
+npm run build
 npm run start:prod
 ```
 

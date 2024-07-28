@@ -12,26 +12,30 @@ None
 ## Installation
 
 ```bash
-$ npm install
+npm install
 ```
 
 ## Run database
 
-```
-$ docker-compose up -d
+```bash
+docker-compose up -d
 ```
 
 ## Running the app
 
 ```bash
 # development
-$ npm run start
+npm run start
+```
 
+```bash
 # watch mode
-$ npm run start:dev
+npm run start:dev
+```
 
+```bash
 # production mode
-$ npm run start:prod
+npm run start:prod
 ```
 
 ## Stack Usado

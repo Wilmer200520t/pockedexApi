@@ -9,16 +9,21 @@ import { Pokemon } from './entities/pokemon.entity';
 import { isValidObjectId, Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { PaginationDto } from '../common/dto/pagination.dto';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class PokemonService {
+  private defaultLimit: number;
   constructor(
     @InjectModel(Pokemon.name)
     private readonly PokemonModel: Model<Pokemon>,
-  ) {}
+    private readonly configService: ConfigService,
+  ) {
+    this.defaultLimit = this.configService.get<number>('defaultLimit');
+  }
 
   async findAll(PaginationParameters: PaginationDto) {
-    const { limit = 10, offset = 0 } = PaginationParameters;
+    const { limit = this.defaultLimit, offset = 0 } = PaginationParameters;
     return this.PokemonModel.find()
       .limit(limit)
       .skip(offset)

@@ -5,63 +5,79 @@
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
+# NestJS project
+
 ## Description
 
-None
+This project uses NestJS along with MongoDB to create a small Pokémon API.
 
-## Installation
+## Method 1: Run individually
+
+### Facility
 
 ```bash
-# Install node dependencies
+# Install Node.js dependencies
 npm install
 ```
 
-## Create .env
+### Create or modify the .env
 
-- Edit the `.env.template` file and complete the following variables with your own parameters:
+- Edit the `.env.template` file and fill in the following variables with your own parameters:
 
 ```
-  MONGO_URL = mongodb://localhost:27017/pokedex (example)
-  APP_PORT = 3000 (example)
+MONGO_URL = mongodb://localhost:27017/pokedex (example)
+APP_PORT = 3000 (example)
 
-  ## Default limit on get request data(example)
-  DEFAULT_LIMIT = 25 (optional)
+## Default limit on GET requests (example)
+DEFAULT_LIMIT = 25 (optional)
 ```
 
-## Run database
+### Run the database
 
 ```bash
-# Run mongo container
+# Run the MongoDB container
 docker-compose up -d
 ```
 
-## Running the app
+### Run the application
 
 ```bash
-# Start app as development
+# Start the application in development mode
 npm run start
 ```
 
 ```bash
-# Start app as watch mode
+# Start the app in watch mode
 npm run start:dev
 ```
 
 ```bash
-# Start app as production mode
+# Start the application in production mode
 npm run build
 npm run start
 ```
 
-## Insert initial data(optional)
+## Method 2: Run the application and database as a container
 
-`Method : GET BASE_URL/api/v2/seed` or
+1. Edit the `.env.prod` file
+2. Install docker
+3. Run the continer app
+
+```bash
+  docker compose -f .\docker-compose.prod.yaml --env-file .\.env.prod up --build -d
+```
+
+## Insert initial data (optional)
+
+You can insert initial data using the following method:
+`Method : GET BASE_URL/api/v2/seed` Or using curl:
 
 ```bash
 curl --location 'BASE_URL/api/v2/seed'
 ```
 
-## Stack Usado
+## Used technology
 
 - MongoDb
 - Nestjs
+- Docker

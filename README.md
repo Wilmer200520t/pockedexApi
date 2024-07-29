@@ -16,6 +16,18 @@ None
 npm install
 ```
 
+## Create .env
+
+- Edit the `.env.template` file and complete the following variables with your own parameters:
+
+```
+  MONGO_URL = mongodb://localhost:27017/pokedex (example)
+  APP_PORT = 3000 (example)
+
+  ## Default limit on get request data(example)
+  DEFAULT_LIMIT = 25 (optional)
+```
+
 ## Run database
 
 ```bash

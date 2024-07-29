@@ -9,8 +9,14 @@ async function app() {
     new ValidationPipe({
       whitelist: true,
       forbidNonWhitelisted: true,
+      //Transforma los datos que vienen en el body o parameters a los tipos de datos que se esperan
+      transform: true,
+      transformOptions: {
+        enableImplicitConversion: true,
+      },
     }),
   );
+
   await app.listen(3000);
 }
 

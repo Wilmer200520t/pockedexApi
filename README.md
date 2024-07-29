@@ -50,7 +50,7 @@ npm run start:dev
 ```bash
 # Start app as production mode
 npm run build
-npm run start:prod
+npm run start
 ```
 
 ## Insert initial data(optional)
